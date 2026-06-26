@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Login Web</title>
+
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#0b1220;
+    color:white;
+}
+
+.box{
+    width:300px;
+    margin:100px auto;
+    padding:20px;
+    background:#1f2937;
+    border-radius:10px;
+}
+
+input,button{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+}
+
+button{
+    background:#3b82f6;
+    border:none;
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🔐 Đăng ký</h2>
+<input id="r_user" placeholder="username">
+<input id="r_pass" type="password" placeholder="password">
+<button onclick="register()">Đăng ký</button>
+
+<hr>
+
+<h2>🔑 Đăng nhập</h2>
+<input id="l_user" placeholder="username">
+<input id="l_pass" type="password">
+<button onclick="login()">Đăng nhập</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script>
+
+// lưu tài khoản trong trình duyệt (GitHub Pages dùng được)
+function register(){
+    let u = r_user.value;
+    let p = r_pass.value;
+
+    if(!u || !p){
+        msg.innerText = "Nhập đủ thông tin";
+        return;
+    }
+
+    localStorage.setItem("user_"+u,p);
+    msg.innerText = "Đăng ký thành công!";
+}
+
+function login(){
+    let u = l_user.value;
+    let p = l_pass.value;
+
+    let pass = localStorage.getItem("user_"+u);
+
+    if(pass == p){
+        msg.innerText = "Đăng nhập thành công!";
+        alert("Welcome " + u);
+    }else{
+        msg.innerText = "Sai tài khoản!";
+    }
+}
+
+</script>
+
+</body>
+</html>
