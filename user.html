@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login System</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#0b1220;
+    color:white;
+    text-align:center;
+}
+
+.box{
+    width:300px;
+    margin:100px auto;
+    padding:20px;
+    background:#1f2937;
+    border-radius:10px;
+}
+
+input,button{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+}
+
+button{
+    background:#3b82f6;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🔐 Đăng ký</h2>
+<input id="r_user" placeholder="username">
+<input id="r_pass" type="password" placeholder="password">
+<button onclick="register()">Register</button>
+
+<hr>
+
+<h2>🔑 Đăng nhập</h2>
+<input id="l_user" placeholder="username">
+<input id="l_pass" type="password" placeholder="password">
+<button onclick="login()">Login</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script>
+
+const API = "http://localhost:3000";
+
+// ===== REGISTER =====
+function register(){
+    fetch(API+"/register",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            username:r_user.value,
+            password:r_pass.value
+        })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        msg.innerText = data.msg;
+    });
+}
+
+// ===== LOGIN =====
+function login(){
+    fetch(API+"/login",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            username:l_user.value,
+            password:l_pass.value
+        })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        msg.innerText = data.msg;
+
+        if(data.ok){
+            alert("🎉 Đăng nhập thành công!");
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>
